@@ -4,8 +4,7 @@ import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.delete.Delete;
 
 /**
- * @author fangjialong
- * @date 2015年9月5日 下午3:54:27
+ * Created by june on 2017/8/9.
  */
 public class DeleteSqlParser extends AbstractParser  implements Parser  {
 

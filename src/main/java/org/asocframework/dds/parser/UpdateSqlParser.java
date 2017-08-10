@@ -9,8 +9,7 @@ import net.sf.jsqlparser.statement.update.Update;
 import java.util.List;
 
 /**
- * @author fangjialong
- * @date 2015年9月5日 下午3:55:28
+ * Created by june on 2017/8/9.
  */
 public class UpdateSqlParser extends AbstractParser implements Parser {
 
