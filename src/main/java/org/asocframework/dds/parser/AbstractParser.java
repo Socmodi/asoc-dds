@@ -18,6 +18,10 @@ public abstract class AbstractParser {
 
     protected List<Table> tables = new ArrayList<Table>();
 
+    public AbstractParser() {
+        init();
+    }
+
     public void init() {
         if (inited) {
             return;
