@@ -22,17 +22,19 @@ public class DdsDataSource implements DataSource{
     private AtomicBoolean inited = new AtomicBoolean(false);
 
     public void  init(){
-        if (!inited.compareAndSet(false,true)){
+        if(!inited.compareAndSet(false,true)){
             return;
         }
+    }
 
-        ServiceLoader serviceLoader;
+    public DataSource getDataSource(String sourceName){
+        return dataSources.get(sourceName);
     }
 
 
     @Override
     public Connection getConnection() throws SQLException {
-        return null;
+        return new DtsConnection();
     }
 
     @Override
