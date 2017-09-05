@@ -1,0 +1,103 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.1.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task-4.1.xsd
+        http://www.dangdang.com/schema/ddframe/rdb">
+
+    <!--  begin -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="name" value="test" />
+        <property name="driverClassName" value="${jdbc.driver}" />
+        <property name="url" value="${test.jdbc.url}" />
+        <property name="username" value="${asoc.jdbc.username}" />
+        <property name="password" value="${asoc.jdbc.password}" />
+        <property name="initialSize" value="${jdbc.initSize}" />
+        <property name="maxActive" value="${jdbc.maxActive}" />
+        <property name="maxIdle" value="${jdbc.maxIdle}" />
+        <property name="minIdle" value="${jdbc.minIdle}" />
+        <property name="maxWait" value="${jdbc.maxWait}" />
+        <property name="useUnfairLock" value="false" />
+        <property name="removeAbandoned" value="false" />
+        <property name="removeAbandonedTimeout" value="180" />
+        <property name="validationQuery" value="SELECT 1;" />
+        <property name="testWhileIdle" value="true" />
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <property name="minEvictableIdleTimeMillis" value="600000" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+        <property name="poolPreparedStatements" value="true" />
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="-1" />
+        <property name="filters" value="filter:wall" />
+    </bean>
+
+
+
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="shardDataSource" />
+    </bean>
+
+    <bean id="transactionTemplate"
+          class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="transactionManager" />
+
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:configuration.xml"/>
+        <property name="dataSource" ref="shardDataSource" />
+        <property name="mapperLocations">
+            <list>
+                <value>classpath*:mapper/*.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="org.asocframework.dts.test.dal" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+    
+    <bean id="shardDataSource" class="org.asocframework.dds.datasource.DdsDataSource">
+        <property name="dataSources">
+            <map>
+                <entry key="db_1" value-ref="dataSource"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="MysqlShardrwDs4ReadWriteRule" class="org.asocframework.dds.rule.ShardRule">
+        <property name="tableRules">
+            <map>
+                <entry key="asset" value-ref="assetRule" />
+            </map>
+        </property>
+    </bean>
+
+    <bean id="assetRule" class="org.asocframework.dds.rule.TableRule">
+        <property name="logicName" value="asset"/>
+        <property name="tableRules" value="asset"/>
+        <property name="tableSuffix">
+            <value>resetForEachDB:[_0-_1]</value>
+        </property>
+
+
+    </bean>
+
+
+
+
+</beans>

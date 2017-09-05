@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class DdsDataSource implements DataSource{
 
 
-    private final Map<String ,DataSource> dataSources = new ConcurrentHashMap<String, DataSource>();
+    private  Map<String ,DataSource> dataSources ;
 
     private AtomicBoolean inited = new AtomicBoolean(false);
 
@@ -75,5 +75,13 @@ public class DdsDataSource implements DataSource{
     @Override
     public Logger getParentLogger() throws SQLFeatureNotSupportedException {
         return null;
+    }
+
+    public Map<String, DataSource> getDataSources() {
+        return dataSources;
+    }
+
+    public void setDataSources(Map<String, DataSource> dataSources) {
+        this.dataSources = dataSources;
     }
 }

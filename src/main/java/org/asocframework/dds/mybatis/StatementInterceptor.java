@@ -8,6 +8,7 @@ import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.plugin.Invocation;
+import org.apache.ibatis.plugin.Plugin;
 import org.asocframework.dds.datasource.DtsConnection;
 import org.asocframework.dds.parser.Parser;
 import org.asocframework.dds.parser.ParserFactory;
@@ -174,7 +175,7 @@ public class StatementInterceptor implements Interceptor {
 
     @Override
     public Object plugin(Object o) {
-        return null;
+        return Plugin.wrap(o, this);
     }
 
     @Override

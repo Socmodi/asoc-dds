@@ -1,0 +1,32 @@
+package org.asocframework.dds.test.example;
+
+import org.asocframework.dds.test.dal.mapper.AssetSerialMapper;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author dhj
+ * @version $Id: DtsExample ,v 1.0 2017/7/12 0012 dhj Exp $
+ * @name
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath*:applicationContext.xml"})
+public class DtsExample {
+
+    @Resource
+    private AssetSerialMapper assetSerialMapper;
+
+    @Test
+    public void  simple() throws InterruptedException {
+
+        assetSerialMapper.find("111111");
+
+        Thread.sleep(10000L);
+    }
+}
