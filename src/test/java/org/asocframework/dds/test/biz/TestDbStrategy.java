@@ -13,7 +13,7 @@ public class TestDbStrategy extends DataSourceShardStrategy{
     @Override
     public String parse(String logicName, Map params) {
         if(params.containsKey("txId")){
-            return "db_01";
+            return "db_1";
         }
         return "db";
     }

@@ -1,6 +1,7 @@
 package org.asocframework.dds.test.dal.mapper;
 
-import org.asocframework.dts.test.dal.model.AssetSerial;
+
+import org.asocframework.dds.test.dal.model.AssetSerial;
 
 import java.util.List;
 

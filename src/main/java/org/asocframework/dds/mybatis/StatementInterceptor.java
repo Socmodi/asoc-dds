@@ -7,6 +7,7 @@ import org.apache.ibatis.logging.jdbc.ConnectionLogger;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Plugin;
 import org.asocframework.dds.datasource.DtsConnection;
@@ -33,6 +34,8 @@ import java.util.Set;
 /**
  * Created by june on 2017/8/25.
  */
+@Intercepts({ @org.apache.ibatis.plugin.Signature(type = StatementHandler.class, method = "prepare", args = {
+        java.sql.Connection.class }) })
 public class StatementInterceptor implements Interceptor {
 
 
@@ -118,7 +121,9 @@ public class StatementInterceptor implements Interceptor {
         } else {
             logicTableName = n;
         }
+
         TableRule tableRule = RulesStore.get(logicTableName);
+        tableRule = conn.getDdsDataSource().getDdsRule().getShardRule().getTableRules().get(logicTableName);
         if (tableRule == null) {
             throw new SQLException("Shard Strategy Query Failed");
         }
@@ -162,10 +167,8 @@ public class StatementInterceptor implements Interceptor {
             }
             if (strict) {
                 t.setName("`"+realTable+"`");
-                t.setSchemaName("`" + realDb + "`");
             } else {
                 t.setName(realTable);
-                t.setSchemaName(realDb);
             }
         }
         String targetSQL = sqlParser.parseSql();

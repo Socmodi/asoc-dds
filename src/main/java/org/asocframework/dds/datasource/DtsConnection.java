@@ -42,15 +42,24 @@ public class DtsConnection implements Connection{
 
     private DdsDataSource ddsDataSource;
 
-    public DtsConnection() {
+    public DtsConnection(DdsDataSource ddsDataSource) {
+        this.ddsDataSource = ddsDataSource;
+    }
 
+    public DdsDataSource getDdsDataSource() {
+        return ddsDataSource;
+    }
+
+    public void setDdsDataSource(DdsDataSource ddsDataSource) {
+        this.ddsDataSource = ddsDataSource;
     }
 
     public void prepare(String dbsuffix)throws SQLException {
         if (prepared) {
             throw new SQLException("Shard Proxy Connection Initialized");
         }
-        instance = ddsDataSource.getDataSource(dbsuffix).getConnection();
+        DataSource dataSource = ddsDataSource.getDataSource(dbsuffix);
+        instance = dataSource.getConnection();
         instance.setAutoCommit(autoCommit);
 
     }

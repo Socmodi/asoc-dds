@@ -74,6 +74,7 @@ public class SelectSqlParser extends AbstractParser implements Parser, SelectVis
 
 	public SelectSqlParser(Statement statement) {
 		this.statement = statement;
+		init();
 	}
 
 	@Override

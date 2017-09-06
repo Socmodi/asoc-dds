@@ -1,6 +1,7 @@
 package org.asocframework.dds.test.example;
 
 import org.asocframework.dds.test.dal.mapper.AssetSerialMapper;
+import org.asocframework.dds.test.dal.model.AssetSerial;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -25,7 +26,8 @@ public class DtsExample {
     @Test
     public void  simple() throws InterruptedException {
 
-        assetSerialMapper.find("111111");
+        AssetSerial assetSerial = assetSerialMapper.find("1111111");
+        System.out.println(assetSerial.getTxId());
 
         Thread.sleep(10000L);
     }

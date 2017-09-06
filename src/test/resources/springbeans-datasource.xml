@@ -67,7 +67,7 @@
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="org.asocframework.dts.test.dal" />
+        <property name="basePackage" value="org.asocframework.dds.test.dal" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
     
@@ -77,27 +77,33 @@
                 <entry key="db_1" value-ref="dataSource"/>
             </map>
         </property>
+        <property name="ddsRule" ref="ddsRule"/>
     </bean>
 
-    <bean id="MysqlShardrwDs4ReadWriteRule" class="org.asocframework.dds.rule.ShardRule">
+    <bean id="ddsRule" class="org.asocframework.dds.rule.DdsRule">
+        <property name="shardRule" ref="shardRule"/>
+    </bean>
+
+    <bean id="shardRule" class="org.asocframework.dds.rule.ShardRule">
         <property name="tableRules">
             <map>
-                <entry key="asset" value-ref="assetRule" />
+                <entry key="asset_serial" value-ref="assetRule" />
             </map>
         </property>
     </bean>
 
     <bean id="assetRule" class="org.asocframework.dds.rule.TableRule">
-        <property name="logicName" value="asset"/>
-        <property name="tableRules" value="asset"/>
+        <property name="logicName" value="asset_serial"/>
+        <property name="tableRules" value="asset_serial"/>
         <property name="tableSuffix">
             <value>resetForEachDB:[_0-_1]</value>
         </property>
-
-
+        <property name="dbStrategy" ref="testDbStrategy"/>
+        <property name="tbStrategy" ref="testTbStrategy"/>
     </bean>
+    <bean id="testDbStrategy" class="org.asocframework.dds.test.biz.TestDbStrategy"/>
 
-
+    <bean id="testTbStrategy" class="org.asocframework.dds.test.biz.TestTbStrategy"/>
 
 
 </beans>

@@ -9,4 +9,11 @@ public class DdsRule {
     public static final String DBINDEX_SUFFIX_WRITE = "_w";
     private ShardRule shardRule;
 
+    public ShardRule getShardRule() {
+        return shardRule;
+    }
+
+    public void setShardRule(ShardRule shardRule) {
+        this.shardRule = shardRule;
+    }
 }

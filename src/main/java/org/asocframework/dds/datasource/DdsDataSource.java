@@ -1,5 +1,7 @@
 package org.asocframework.dds.datasource;
 
+import org.asocframework.dds.rule.DdsRule;
+
 import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -19,6 +21,8 @@ public class DdsDataSource implements DataSource{
 
     private  Map<String ,DataSource> dataSources ;
 
+    private DdsRule ddsRule;
+
     private AtomicBoolean inited = new AtomicBoolean(false);
 
     public void  init(){
@@ -34,7 +38,7 @@ public class DdsDataSource implements DataSource{
 
     @Override
     public Connection getConnection() throws SQLException {
-        return new DtsConnection();
+        return new DtsConnection(this);
     }
 
     @Override
@@ -83,5 +87,21 @@ public class DdsDataSource implements DataSource{
 
     public void setDataSources(Map<String, DataSource> dataSources) {
         this.dataSources = dataSources;
+    }
+
+    public DdsRule getDdsRule() {
+        return ddsRule;
+    }
+
+    public void setDdsRule(DdsRule ddsRule) {
+        this.ddsRule = ddsRule;
+    }
+
+    public AtomicBoolean getInited() {
+        return inited;
+    }
+
+    public void setInited(AtomicBoolean inited) {
+        this.inited = inited;
     }
 }

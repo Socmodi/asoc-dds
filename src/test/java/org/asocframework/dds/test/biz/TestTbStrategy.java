@@ -13,8 +13,8 @@ public class TestTbStrategy extends TableShardStrategy{
     @Override
     public String parse(String logicName, Map params) {
         if(params.containsKey("txId")){
-            return "asset_01";
+            return "asset_serial_01";
         }
-        return "asset";
+        return "asset_serial";
     }
 }
