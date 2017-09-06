@@ -13,7 +13,6 @@ import org.apache.ibatis.plugin.Plugin;
 import org.asocframework.dds.datasource.DtsConnection;
 import org.asocframework.dds.parser.Parser;
 import org.asocframework.dds.parser.ParserFactory;
-import org.asocframework.dds.rule.RulesStore;
 import org.asocframework.dds.rule.TableRule;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
@@ -122,8 +121,7 @@ public class StatementInterceptor implements Interceptor {
             logicTableName = n;
         }
 
-        TableRule tableRule = RulesStore.get(logicTableName);
-        tableRule = conn.getDdsDataSource().getDdsRule().getShardRule().getTableRules().get(logicTableName);
+        TableRule tableRule = conn.getDdsDataSource().getDdsRule().getShardRule().getTableRules().get(logicTableName);
         if (tableRule == null) {
             throw new SQLException("Shard Strategy Query Failed");
         }

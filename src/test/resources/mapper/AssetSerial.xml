@@ -34,7 +34,7 @@
     </select>
 
     <select id="find" resultMap="BaseResultMap">
-        select * from asset_serial where txId=#{txId}
+        select * from test.asset_serial where txId=#{txId}
     </select>
 
 </mapper>
