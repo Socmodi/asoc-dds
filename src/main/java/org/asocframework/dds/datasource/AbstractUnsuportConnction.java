@@ -19,7 +19,7 @@ import java.util.concurrent.Executor;
 /**
  * Created by june on 2017/8/21.
  */
-public abstract class AbtractUnsuportConnction implements Connection{
+public abstract class AbstractUnsuportConnction implements Connection{
 
     @Override
     public final CallableStatement prepareCall(final String sql) throws SQLException {

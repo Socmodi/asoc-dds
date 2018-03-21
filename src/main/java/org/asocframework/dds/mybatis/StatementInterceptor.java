@@ -125,7 +125,6 @@ public class StatementInterceptor implements Interceptor {
         if (tableRule == null) {
             throw new SQLException("Shard Strategy Query Failed");
         }
-
         Object parameterObject = boundSql.getParameterObject();
         Map<String, Object> params = null;
         if (SINGLE_PARAM_CLASSES.contains(parameterObject.getClass())) {

@@ -1,5 +1,6 @@
 package org.asocframework.dds.test.example;
 
+import org.asocframework.dds.sequence.SequenceFactory;
 import org.asocframework.dds.test.dal.mapper.AssetSerialMapper;
 import org.asocframework.dds.test.dal.model.AssetSerial;
 import org.junit.Test;
@@ -23,6 +24,9 @@ public class DtsExample {
     @Resource
     private AssetSerialMapper assetSerialMapper;
 
+    @Resource
+    private SequenceFactory sequenceFactory;
+
     @Test
     public void  simple() throws InterruptedException {
 
@@ -31,4 +35,15 @@ public class DtsExample {
 
         Thread.sleep(10000L);
     }
+
+    @Test
+    public void sequenceTest(){
+
+        for(int i = 0 ;i<200;i++){
+            int value = sequenceFactory.next("serial","1","01");
+            System.out.println(value);
+        }
+
+    }
+
 }

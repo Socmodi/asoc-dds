@@ -10,7 +10,7 @@ import java.util.LinkedList;
 /**
  * Created by june on 2017/8/21.
  */
-public abstract class AbtractConnection extends AbtractUnsuportConnction{
+public abstract class AbstractConnection extends AbstractUnsuportConnction{
 
     private boolean autoCommit = true;
 

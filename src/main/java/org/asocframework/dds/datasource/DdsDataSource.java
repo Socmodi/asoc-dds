@@ -21,6 +21,8 @@ public class DdsDataSource implements DataSource{
 
     private  Map<String ,DataSource> dataSources ;
 
+    private String  dbName;
+
     private DdsRule ddsRule;
 
     private AtomicBoolean inited = new AtomicBoolean(false);
@@ -103,5 +105,13 @@ public class DdsDataSource implements DataSource{
 
     public void setInited(AtomicBoolean inited) {
         this.inited = inited;
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
     }
 }

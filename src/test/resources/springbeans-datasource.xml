@@ -66,12 +66,19 @@
         </property>
     </bean>
 
+    <bean id="sequenceFactory" class="org.asocframework.dds.sequence.SequenceFactory">
+        <property name="logicSequence" value="asset_sequence"/>
+        <property name="ddsDataSource" ref="shardDataSource" />
+        <property name="maxSize" value="199"/>
+    </bean>
+
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="org.asocframework.dds.test.dal" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
     
     <bean id="shardDataSource" class="org.asocframework.dds.datasource.DdsDataSource">
+        <property name="dbName" value="db"/>
         <property name="dataSources">
             <map>
                 <entry key="db_1" value-ref="dataSource"/>
