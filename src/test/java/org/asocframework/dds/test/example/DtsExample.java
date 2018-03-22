@@ -39,7 +39,7 @@ public class DtsExample {
     @Test
     public void sequenceTest(){
 
-        for(int i = 0 ;i<200;i++){
+        for(int i = 1 ;i<200;i++){
             int value = sequenceFactory.next("serial","1","01");
             System.out.println(value);
         }
